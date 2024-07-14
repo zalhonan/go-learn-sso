@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	grpcapp "sso/internal/app/grpc"
 	"sso/internal/services/auth"
-	"sso/storage/sqlite"
+	"sso/internal/storage/sqlite"
 	"time"
 )
 
@@ -23,7 +23,12 @@ func New(
 		panic(err)
 	}
 
-	authService := auth.New(log, storage, storage, storage, tokenTTL)
+	authService := auth.New(
+		log,
+		storage,
+		storage,
+		storage,
+		tokenTTL)
 
 	grpcApp := grpcapp.New(log, authService, grpcPort)
 
